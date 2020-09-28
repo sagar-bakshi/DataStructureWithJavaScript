@@ -6,7 +6,6 @@ class Node{
     }
 }
 
-
 class BinarySearchTree {
     constructor() {
         this.root = null;
@@ -64,6 +63,39 @@ class BinarySearchTree {
         }
         return data;
     }
+    DFSPreOrder(){
+        let data = [];
+        let node = this.root;
+        function traverse(node) {
+            data.push(node.value);
+            if (node.left) traverse(node.left);
+            if (node.right) traverse(node.right);
+        }
+        traverse(node);
+        return data;
+    }
+    DFSPostOrder(){
+        let node = this.root;
+        let data = [];
+        function traverse(node) {
+            if (node.left) traverse(node.left);
+            if (node.right) traverse(node.right);
+            data.push(node.value);
+        }
+        traverse(node);
+        return data;
+    }
+    DFSInOrder(){
+        let node = this.root;
+        let data = [];
+        function traverse(node) {
+            if (node.left) traverse(node.left);
+            data.push(node.value);
+            if (node.right) traverse(node.right);
+        }
+        traverse(node);
+        return data;
+    }
 }
 
 let tree = new BinarySearchTree();
@@ -73,10 +105,14 @@ tree.insert(9);
 tree.insert(15);
 tree.insert(8);
 tree.insert(5);
+tree.insert(6);
+
+let result = tree.DFSInOrder();
 
 //      10
 //     9    15
 //  8
-//5
+//5   6
 
+console.log(result);
 
