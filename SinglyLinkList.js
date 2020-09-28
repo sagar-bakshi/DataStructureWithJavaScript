@@ -54,14 +54,55 @@ class SinglyLinkList {
             }
             return current;
     }
+    shift(){
+        if (this.head && this.length > 0){
+            let temp = this.head;
+            this.head = this.head.next;
+            this.length--;
+            return temp;
+        }else {
+            return undefined;
+        }
+    }
+    print(){
+        let arr = []
+        let temp = this.head;
+        while (temp.next){
+            arr.push(temp.value);
+            temp = temp.next;
+        }
+        return arr;
+    }
+    reverse(){
+        let node = this.head;
+        this.head = this.tail;
+        this.tail = node;
 
+        let prev = null;
+        let next;
+
+        for (let i = 0; i < this.length; i++) {
+            next = node.next;
+            node.next = prev;
+            prev = node;
+            node = next;
+        }
+    return this;
+    }
 }
 
 let list = new SinglyLinkList();
 
+
 list.addNode(23);
+list.addNode(40);
+list.addNode(50);
+list.addNode(20);
+list.addNode(80);
 
 
 
-console.log(list.pop());
-console.log(list.pop());
+
+list.reverse();
+
+
