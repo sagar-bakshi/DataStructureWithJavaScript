@@ -21,24 +21,45 @@ class Graph{
         }
         delete this.adjacencyList[vertex]
     }
-    DFS(vertex){
+    depthFirstSearch(start){
         //variable to track the result
         const result = [],
             visited = {};
         let adjacencyList = this.adjacencyList;
 
-        (function traverse(start) {
-            if (!vertex) return null;
-            result.push(vertex);
+        (function traverse(vertex) {
+            if (!vertex) return null
             visited[vertex] = true;
-          adjacencyList[vertex].forEach(neighbour =>{
+            result.push(vertex);
+            adjacencyList[vertex].forEach(neighbour =>{
               if (!visited[neighbour]) {
-                  return DFS(neighbour)
+                  return traverse(neighbour);
               }
           });
-        })(start)
-
+        })(start);
+        return result;
     }
+    dfsItrative(start){
+        let visited = {};
+        let result = [];
+        let stack = [start];
+        visited[start] = true;
+        let currentVertex;
+        while (stack.length){
+            console.log(stack);
+            currentVertex = stack.pop();
+            result.push(currentVertex);
+            this.adjacencyList[currentVertex].forEach(neighbour=>{
+                if (!visited[neighbour]) {
+                    visited[neighbour] = true;
+                    stack.push(neighbour);
+                }
+            });
+        }
+
+        return result;
+    }
+
 }
 
 let graph = new Graph();
@@ -58,4 +79,10 @@ graph.addEdge("D","E");
 graph.addEdge("D","F");
 graph.addEdge("E","F");
 
-graph.DFS("A");
+
+
+// graph.depthFirstSearch("A");
+
+console.log(graph.dfsItrative("A"));
+
+// console.log(graph.depthFirstSearch("A"));
